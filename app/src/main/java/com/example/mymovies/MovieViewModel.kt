@@ -1,30 +1,42 @@
+package com.example.mymovies
+
+
+import Results
+
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mymovies.PopularMovie
-import com.example.mymovies.RetrofitClient
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
+
 
 class MovieViewModel : ViewModel() {
-    private val _popularMovies = MutableLiveData<PopularMovie>()
-    val popularMovies: LiveData<PopularMovie> get() = _popularMovies
+    private val _movies = MutableLiveData<List<Results>>()
+    val movies: LiveData<List<Results>> = _movies
 
-    init {
-        fetchPopularMovies()
-    }
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
 
-    private fun fetchPopularMovies() {
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val movieService = RetrofitInstance.creditCardService
+
+    fun fetchPopularMovies(apiKey: String) {
+        _isLoading.value = true
         viewModelScope.launch {
             try {
-                val popularMovies = withContext(Dispatchers.IO) {
-                    RetrofitClient.movieApiService.fetchPopularMovies("c14c15c28109f082c13fc95d04b65361")
+                val response = movieService.getPopularMovies("c14c15c28109f082c13fc95d04b65361")
+                if (response.isSuccessful) {
+                    _movies.value = response.body()?.results ?: emptyList()
+                } else {
+                    _error.value = "Failed to fetch popular movies: ${response.message()}"
                 }
-                _popularMovies.value = popularMovies
             } catch (e: Exception) {
-                // Handle error
+                _error.value = "Error fetching popular movies: ${e.message}"
+            } finally {
+                _isLoading.value = false
             }
         }
     }

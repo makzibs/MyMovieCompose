@@ -1,5 +1,3 @@
-package com.example.mymovies
-
 data class PopularMovie(
     val dates: Dates?,
     val page: Int?,
@@ -29,4 +27,3 @@ data class Results(
     val voteAverage: Double?,
     val voteCount: Int?
 )
-
