@@ -1,5 +1,6 @@
 package com.example.mymovies
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 
 import androidx.activity.compose.setContent
@@ -15,6 +16,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MovieViewModel by viewModels()
@@ -22,8 +26,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             MyApp {
-                CreditCardScreen(viewModel = viewModel)
+                CreditCardScreen(viewModel = viewModel, navController = navController)
             }
         }
     }

@@ -3,6 +3,7 @@ package com.example.mymovies
 import Results
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,9 +30,12 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
-
+import androidx.navigation.NavController
+ fun setSelectedMovie(movie: Results) {
+    RetrofitInstance.selectedMovie = movie
+}
 @Composable
-fun CreditCardScreen(viewModel: MovieViewModel) {
+fun CreditCardScreen(viewModel: MovieViewModel, navController: NavController) {
     val movies by viewModel.movies.observeAsState(emptyList<Results>())
     //val movieDetail by viewModel.moviede
 
@@ -51,23 +55,29 @@ fun CreditCardScreen(viewModel: MovieViewModel) {
         }
     } else {
         // Once data is available, display the movie titles
-        MovieList(movieList = movies)
+        MovieList(movieList = movies, navController = navController)
         println(movies.toString())
     }
 }
 
 @Composable
-fun MovieList(movieList: List<Results>) {
+fun MovieList(movieList: List<Results>, navController: NavController) {
     LazyColumn {
         itemsIndexed(items = movieList) { index, movie ->
             // Wrap each item in a Card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                .clickable {
+                    setSelectedMovie(movie)
+                // Navigate to MovieDetailScreen on click
+                navController.navigate("MovieDetailScreen")
+            },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 6.dp
                 ),
+
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -77,26 +87,14 @@ fun MovieList(movieList: List<Results>) {
                     Log.d("Tag", "${movie.poster_path}")
                     Log.d("Tag", "${movie.toString()}")
 
-                  /*  val painter = // You can customize image loading here if needed
-                        rememberAsyncImagePainter(
-                            ImageRequest.Builder(LocalContext.current)
-                                .data(data = "${RetrofitInstance.BASE_URL}${movie.posterPath}")
-                                .apply<ImageRequest.Builder>(block = fun ImageRequest.Builder.() {
-                                    // You can customize image loading here if needed
-                                }).build()
-                        )
-                    Image(
-                        painter = painter,
-                        contentDescription = "Movie Poster",
-                        modifier = Modifier
-                            .size(280.dp, 438.dp) // Adjust size as needed
-                    )*/
+
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data("${RetrofitInstance.imageBaseUrl}${movie.poster_path}")
                             .build(),
                         contentDescription = "Movie Poster",
                         modifier = Modifier.size(280.dp, 438.dp)
+
                     )
 
                 }

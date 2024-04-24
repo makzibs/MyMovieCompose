@@ -1,6 +1,7 @@
 package com.example.mymovies
 
 
+import Results
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -12,6 +13,7 @@ object RetrofitInstance {
     private const val API_KEY = "c14c15c28109f082c13fc95d04b65361"
     private const val AUTH_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMTRjMTVjMjgxMDlmMDgyYzEzZmM5NWQwNGI2NTM2MSIsInN1YiI6IjY1ZDJlZjE2MjhkN2ZlMDE0OTM0NDRmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1i2acStIfdOf0nkvxnSbb274Zw8W7ytFMky2QMlCUCg"
     const val imageBaseUrl = "https://image.tmdb.org/t/p/w500"
+    var selectedMovie: Results? = null
 
     // Interceptor to add Authorization header to every request
     private val authInterceptor = object : Interceptor {
