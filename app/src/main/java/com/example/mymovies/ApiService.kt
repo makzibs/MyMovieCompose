@@ -20,10 +20,11 @@ data class Results(
     val originalTitle: String?,
     val overview: String?,
     val popularity: Double?,
-    val posterPath: String?,
+    val poster_path: String?,
     val releaseDate: String?,
     val title: String?,
     val video: Boolean?,
     val voteAverage: Double?,
     val voteCount: Int?
 )
+
