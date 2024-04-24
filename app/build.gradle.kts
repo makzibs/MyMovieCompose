@@ -84,4 +84,6 @@ dependencies {
 
 // Coroutines for asynchronous programming
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    // coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
