@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,7 +25,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.navigation.NavController
@@ -65,11 +69,12 @@ fun MovieList(movieList: List<Results>, navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                .clickable {
-                    setSelectedMovie(movie)
-                // Navigate to MovieDetailScreen on click
-                navController.navigate("MovieDetailScreen")
-            },
+
+                    .clickable {
+                        setSelectedMovie(movie)
+                        // Navigate to MovieDetailScreen on click
+                        navController.navigate("MovieDetailScreen")
+                    },
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 6.dp
                 ),
@@ -77,20 +82,27 @@ fun MovieList(movieList: List<Results>, navController: NavController) {
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-
+                    verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
 
                 ) {
-                    Text(text = "${movie.title ?: "Unknown Title"}")
 
 
+                    Text(text = "${movie.title ?: "Unknown Title"}",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp)
+
+                    Spacer(Modifier.height(10.dp))
 
                     AsyncImage(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .size(280.dp, 438.dp),
                         model = ImageRequest.Builder(LocalContext.current)
                             .data("${RetrofitInstance.imageBaseUrl}${movie.poster_path}")
                             .build(),
                         contentDescription = "Movie Poster",
-                        modifier = Modifier.size(280.dp, 438.dp)
+
 
                     )
 
