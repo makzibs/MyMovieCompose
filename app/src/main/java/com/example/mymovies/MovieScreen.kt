@@ -37,7 +37,7 @@ import androidx.navigation.NavController
 @Composable
 fun MovieScreen(viewModel: MovieViewModel, navController: NavController) {
     val movies by viewModel.movies.observeAsState(emptyList<Results>())
-    //val movieDetail by viewModel.moviede
+    //val movieDetail by viewModel.movied
 
     LaunchedEffect(Unit) {
         viewModel.fetchPopularMovies(

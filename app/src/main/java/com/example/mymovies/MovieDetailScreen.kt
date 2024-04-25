@@ -1,5 +1,8 @@
 package com.example.mymovies
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -20,6 +23,9 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
+
+
+
 @Composable
 fun MovieDetailScreen(overview: String, navController: NavHostController) {
     // Retrieve selected movie details
@@ -29,7 +35,6 @@ fun MovieDetailScreen(overview: String, navController: NavHostController) {
        Color(0xFF153448),
         contentColor = Color.White // Adjust text color as needed
     )
-
 
     // Display movie details if selectedMovie is not null
     selectedMovie?.let { movie ->
@@ -76,6 +81,9 @@ fun MovieDetailScreen(overview: String, navController: NavHostController) {
                
             }
             Spacer(modifier = Modifier.height(200.dp))
+            CallButton(phoneNumber = "9846045995")
+
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { navController.popBackStack() },
                 modifier = Modifier.padding(top = 20.dp),
@@ -85,6 +93,27 @@ fun MovieDetailScreen(overview: String, navController: NavHostController) {
             }
             // Display other movie details here
         }
+    }
+}
+
+
+
+@Composable
+fun CallButton(phoneNumber: String) {
+    val context = LocalContext.current
+    val makePhoneCall: () -> Unit = {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+        context.startActivity(intent)
+    }
+
+    Button(
+        onClick = makePhoneCall,
+        colors = ButtonDefaults.buttonColors(
+            Color(0xFF153448),
+            contentColor = Color.White
+        )
+    ) {
+        Text(text = "Call")
     }
 }
 
