@@ -2,11 +2,10 @@ package com.example.mymovies
 
 import Results
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,20 +21,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import androidx.navigation.NavController
  fun setSelectedMovie(movie: Results) {
     RetrofitInstance.selectedMovie = movie
 }
 @Composable
-fun CreditCardScreen(viewModel: MovieViewModel, navController: NavController) {
+fun MovieScreen(viewModel: MovieViewModel, navController: NavController) {
     val movies by viewModel.movies.observeAsState(emptyList<Results>())
     //val movieDetail by viewModel.moviede
 
@@ -81,11 +77,12 @@ fun MovieList(movieList: List<Results>, navController: NavController) {
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
                 ) {
                     Text(text = "${movie.title ?: "Unknown Title"}")
-                    Log.d("Tag", "${movie.poster_path}")
-                    Log.d("Tag", "${movie.toString()}")
+
 
 
                     AsyncImage(
@@ -96,6 +93,7 @@ fun MovieList(movieList: List<Results>, navController: NavController) {
                         modifier = Modifier.size(280.dp, 438.dp)
 
                     )
+
 
                 }
             }
