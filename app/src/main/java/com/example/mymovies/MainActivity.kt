@@ -5,7 +5,11 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -15,50 +19,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
-/*
-class MainActivity : AppCompatActivity() {
-    private val viewModel: MovieViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            val navController = rememberNavController()
-            MyApp {
-                MovieScreen(viewModel = viewModel, navController = navController)
-            }
-        }
-    }
-}
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MyApp(content: @Composable () -> Unit) {
-
-    // A surface container using the 'background' color from the theme
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Movies") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-            )
-        }
-    ) {
-        Column(modifier = Modifier.padding(it)) {
-            content()
-        }
-    }
-
-}
-*/
 class MainActivity : AppCompatActivity() {
     private val viewModel: MovieViewModel by viewModels()
 
@@ -81,10 +50,27 @@ fun MyApp(navController: NavHostController, content: @Composable () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Movies") },
+                //title = {stringResource(R.string.app_title)},
+
+                //title = { Text(stringResource(R.string.app_title)) },
+                title = {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.app_title),
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                },
+
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+
+                    //titleContentColor =  Color(0xFF153448),
+                    titleContentColor = Color.White,
+                    containerColor = Color(0xFF153448),
                 ),
             )
         }

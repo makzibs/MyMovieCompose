@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyMovies</string>
+    <string name="app_title">My Movies</string>
+    <string name="rating">ImDb Rating</string>
+    <string name="call">Call</string>
+    <string name="goBack">Takaisin</string>
 </resources>

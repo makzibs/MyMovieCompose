@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rating">ImDb Luokitus</string>
+    <string name="app_title">Omat elokuvat</string>
+    <string name="app_name">\MyMoviees</string>
+    <string name="call">Soittaa</string>
+    <string name="goBack">Takaisin</string>
+</resources>
