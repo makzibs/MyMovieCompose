@@ -3,5 +3,5 @@
     <string name="app_title">My Movies</string>
     <string name="rating">ImDb Rating</string>
     <string name="call">Call</string>
-    <string name="goBack">Takaisin</string>
+    <string name="goBack">Go Back</string>
 </resources>

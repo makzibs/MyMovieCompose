@@ -78,8 +78,10 @@ fun MyApp(navController: NavHostController, content: @Composable () -> Unit) {
         Column(modifier = Modifier.padding(it)) {
             NavHost(navController, startDestination = "MovieScreen") {
                 composable("MovieScreen") { content() }
-                composable("MovieDetailScreen") { MovieDetailScreen(navController = navController, overview = "") }
-                // Add more destinations as needed
+                composable("MovieDetailScreen") {
+                    MovieDetailScreen(navController = navController, overview = "")
+                    // Add more destinations as needed
+                }
             }
         }
     }
